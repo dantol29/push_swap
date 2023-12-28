@@ -12,165 +12,188 @@
 
 #include "push_swap.h"
 
-void	push_b_to_a(t_stack *a)
+// regular quicksort to find pivot
+void	quicksort(int *stack_a, int	size)
 {
-	int	size;
-	int	i;
-
-	size = a->size_b;
-	i = 0;
-	while (i < size)
-	{
-		pa(a);
-		i++;
-	}
-}
-
-void	modified_quicksort(t_stack *a)
-{
-	int	j;
 	int	pivot;
+	int	i;
+	int	j;
+	int	partition_index;
 
-	pivot = a->size_a - 1;
-	if (a->size_a < 2 || a->stack_a == NULL)
+	if (size < 2 || stack_a == NULL)
 		return ;
+	pivot = stack_a[size - 1];
+	i = -1;
 	j = 0;
-	while (j <= pivot)
+	while (j < size)
 	{
-		if (a->stack_a[pivot] > a->stack_a[j])
-		{
-			sa(a);
-			pb(a);
-			j = -1;
-			pivot--;
-		}
-		else if (j == 1)
-		{
-			ra(a);
-			pivot--;
-			j = -1;
-		}
+		if (pivot > stack_a[j])
+			ft_swap(&stack_a[j], &stack_a[++i]);
 		j++;
 	}
+	ft_swap(&stack_a[size - 1], &stack_a[i + 1]);
+	partition_index = i + 1;
+	quicksort(stack_a, partition_index);
+	quicksort(stack_a + partition_index + 1 , size - (partition_index + 1));
 }
+
+// int	find_pivot(t_stack *a, int a_b)
+// {
+// 	if (a_b == 0)
+// 	{
+// 		ft_memcpy(a->stack_tmp, a->stack_a, a->size_a);
+// 		quicksort(a->stack_tmp, a->size_a);
+// 		return (a->stack_tmp[(a->size_b - 1) / 2]);
+// 	}
+// 	else if (a_b == 1)
+// 	{
+// 		ft_memcpy(a->stack_tmp, a->stack_b, a->size_b);
+// 		quicksort(a->stack_tmp, a->size_b);
+// 		return (a->stack_tmp[(a->size_b - 1) / 2]);
+// 	}
+// 	return (0);
+// }
+
+// void	iterative_quicksort(t_stack *a)
+// {
+// 	int	pivot;
+// 	int	j;
+// 	int	size;
+// 	int	pa_count;
+// 	//int	partition_index;
+// 	j = 0;
+// 	while (j != 42)
+// 	{
+// 		while (a->size_a > 3)
+// 		{
+// 			j = 0;
+// 			size = a->size_a;
+// 			pivot = find_pivot(a, 0);
+// 			printf("%d pivot\n", pivot);
+// 			while (j < size && a->size_a > 3)
+// 			{
+// 				if (pivot >= a->stack_a[0])
+// 					pb(a);
+// 				else
+// 					ra(a);
+// 				j++;
+// 			}
+// 		}
+// 		//sort_3(a);
+// 		j = 0;
+// 		pa_count = 0;
+// 		size = a->size_b;
+// 		pivot = find_pivot(a, 1);
+// 		printf("%d pivot\n", pivot);
+// 		while (j < size)
+// 		{
+// 			if (pivot < a->stack_b[0])
+// 			{
+// 				pa(a);
+// 				pa_count++;
+// 			}
+// 			else
+// 				rb(a);
+// 			j++;
+// 		}
+// 		//if (pa_count <= 3)
+// 		sort_3(a);
+// 		j = 42;
+// 	}
+// }
+
+// pivot == min and then next_min and so on until stack a is not empty
 
 int	find_min(t_stack *a)
 {
-	int	min;
 	int	i;
+	int	min;
 
-	min = 2147483647;
 	i = 0;
+	min = 2147483647;
 	while (i < a->size_a)
 	{
 		if (a->stack_a[i] < min)
 			min = a->stack_a[i];
 		i++;
 	}
-	return (min);
+	i = 0;
+	while (a->stack_a[i] != min)
+		i++;
+	return (i);
 }
 
-void	stupid_rra(t_stack *a, int count)
+void	sort_3(t_stack *a)
 {
-	int	i;
-
-	i = 0;
-	while (i < count)
+	// 3 2 1
+	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[1] > a->stack_a[2])
 	{
+		sa(a);
 		rra(a);
-		i++;
 	}
-	pb(a);
-}
-
-void	stupid_ra(t_stack *a, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
+	// 2 1 3
+	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[0] < a->stack_a[2])
+		sa(a);
+	// 3 1 2
+	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[1] < a->stack_a[2])
 		ra(a);
-		i++;
+	// 2 3 1
+	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2] && a->stack_a[0] > a->stack_a[2])
+		rra(a);
+	// 1 3 2
+	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2])
+	{
+		sa(a);
+		ra(a);
 	}
-	pb(a);
 }
 
-void	stupid(t_stack *a)
+int	push_to_b(t_stack *a)
 {
 	int	min;
-	int	i;
 
-	min = find_min(a);
-	i = 0;
-	while (i < a->size_a)
+	while (a->size_a > 3)
 	{
-		if (a->stack_a[i] == min)
+		min = find_min(a);
+		if (a->size_a / 2 >= min)
 		{
-			if (a->size_a - i < a->size_a / 2)
-				stupid_rra(a, a->size_a - i);
-			else
-				stupid_ra(a, i);
-			min = find_min(a);
-			i = -1;
+			min = a->stack_a[min];
+			while (a->stack_a[0] != min)
+				ra(a);
+			if (check_if_sorted(a) == 1)
+				break ;
+			pb(a);
 		}
-		i++;
+		else
+		{
+			min = a->stack_a[min];
+			while (a->stack_a[0] != min)
+				rra(a);
+			if (check_if_sorted(a) == 1)
+				break ;
+			pb(a);
+		}
 	}
-	push_b_to_a(a);
+	sort_3(a);
+	while (a->size_b > 0)
+		pa(a);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
-	int		i;
 
+	check_argv(argc, argv);
+	check_duplicates(ft_split(argv[1], ' '));
 	a = malloc(sizeof(t_stack));
-	a->size_a = argc - 1;
-	a->size_b = 0;
-	a->stack_a = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->stack_a == NULL)
-		return (1);
-	a->stack_b = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->stack_b == NULL)
-	{
-		free(a->stack_a);
-		return (1);
-	}
-	i = 0;
-	while (i < a->size_a)
-	{
-		a->stack_a[i] = ft_atoi(argv[i + 1]);
-		i++;
-	}
-	//modified_quicksort(a);
-	stupid(a);
+	if (allocate_memory(a, argv) == 1)
+		exit(EXIT_FAILURE);
+	fill_stack(a, ft_split(argv[1], ' '));
+	if (check_if_sorted(a) == 1)
+		return (0);
+	push_to_b(a);
 	print_stack(a->stack_a, a->size_a);
 	print_stack(a->stack_b, a->size_b);
-	free(a->stack_a);
-	free(a->stack_b);
-	free(a);
+	free_memory(a);
 }
-
-// void	quicksort(int *stack_a, int	size)
-// {
-// 	int	pivot;
-// 	int	i;
-// 	int	j;
-// 	int	partition_index;
-
-// 	if (size < 2 || stack_a == NULL)
-// 		return ;
-// 	pivot = stack_a[size - 1];
-// 	i = -1;
-// 	j = 0;
-// 	while (j < size)
-// 	{
-// 		if (pivot > stack_a[j])
-// 			ft_swap(&stack_a[j], &stack_a[++i]);
-// 		j++;
-// 	}
-// 	ft_swap(&stack_a[size - 1], &stack_a[i + 1]);
-// 	partition_index = i + 1;
-// 	quicksort(stack_a, partition_index);
-// 	quicksort(stack_a + partition_index + 1 , size - (partition_index + 1));
-// }
