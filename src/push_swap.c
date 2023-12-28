@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 // regular quicksort to find pivot
 void	quicksort(int *stack_a, int	size)

@@ -1,5 +1,5 @@
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	pb(t_stack *a)
 {

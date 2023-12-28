@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	fill_stack(t_stack *a, char **numbers)
 {

@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = push_swap
 LIBFT = libft
-SRCS = push_swap.c utils.c operations.c memory.c errors.c
+SRCS = src/push_swap.c src/utils.c src/operations.c src/memory.c src/errors.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
