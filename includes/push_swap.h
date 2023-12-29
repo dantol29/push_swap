@@ -31,10 +31,13 @@ typedef struct s_stack
 }	t_stack;
 
 // algorithm
-void    sort(t_stack *a);
 void	sort_3(t_stack *a);
 void	quicksort(int *stack_a, int	size);
 void	assign_index(t_stack *a);
+void    rotate_and_push(t_stack *a, int cost_a, int cost_b);
+void    rotate_b(t_stack *a, int cost_b);
+void    rotate_a(t_stack *a, int cost_a);
+void    solve(t_stack *a);
 
 // operations
 void	ra(t_stack *a);

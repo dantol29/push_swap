@@ -1,23 +1,23 @@
 #include "../includes/push_swap.h"
 
-void	sort_3(t_stack *a)
+void    shift_stack(t_stack *a)
 {
-	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[1] > a->stack_a[2])
-	{
-		sa(a);
-		rra(a);
-	}
-	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[0] < a->stack_a[2])
-		sa(a);
-	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[1] < a->stack_a[2])
-		ra(a);
-	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2] && a->stack_a[0] > a->stack_a[2])
-		rra(a);
-	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2])
-	{
-		sa(a);
-		ra(a);
-	}
+    if (a->size_a / 2 > find_min_index(a))
+    {
+        while (a->stack_a[0] != find_min(a))
+        {
+            ra(a);
+            printf("ra\n");
+        }
+    }
+    else
+    {
+        while (a->stack_a[0] != find_min(a))
+        {
+            rra(a);
+            printf("rra\n");
+        }
+    }
 }
 
 static void get_target(t_stack *a)
@@ -63,35 +63,6 @@ static void get_cost(t_stack *a)
     }
 }
 
-static void rotate_and_push(t_stack *a, int cost_a, int cost_b)
-{
-    int i;
-
-    i = 0;
-    if (cost_b < 0)
-    {
-        while (i++ < cost_b * -1)
-            rrb(a);
-    }
-    else if (cost_b >= 0)
-    {
-        while (i++ < cost_b)
-            rb(a);
-    }
-    i = 0;
-    if (cost_a < 0)
-    {
-        while (i++ < cost_a * -1)
-            rra(a);
-    }
-    else if (cost_a >= 0)
-    {
-        while (i++ < cost_a)
-            ra(a);
-    }
-    pa(a);
-}
-
 static void move_cheapest(t_stack *a)
 {
     int i;
@@ -122,29 +93,5 @@ void    solve(t_stack *a)
         get_cost(a);
         move_cheapest(a);
     }
-    if (a->size_a / 2 > find_min_index(a))
-    {
-        while (a->stack_a[0] != find_min(a))
-            ra(a);
-    }
-    else
-    {
-        while (a->stack_a[0] != find_min(a))
-            rra(a);
-    }
-}
-
-void    sort(t_stack *a)
-{
-    if (a->size_a == 2 && check_if_sorted(a) != 1)
-		sa(a);
-	else if (a->size_a == 3)
-		sort_3(a);
-    else
-    {
-        while (a->size_a > 3)
-            pb(a);
-        sort_3(a);
-        solve(a);
-    }
+    shift_stack(a);
 }

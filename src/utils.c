@@ -19,67 +19,6 @@ int	abs(int n)
 	return (n);
 }
 
-void	quicksort(int *stack_a, int	size)
-{
-	int	pivot;
-	int	i;
-	int	j;
-	int	partition_index;
-
-	if (size < 2 || stack_a == NULL)
-		return ;
-	pivot = stack_a[size - 1];
-	i = -1;
-	j = 0;
-	while (j < size)
-	{
-		if (pivot > stack_a[j])
-			ft_swap(&stack_a[j], &stack_a[++i]);
-		j++;
-	}
-	ft_swap(&stack_a[size - 1], &stack_a[i + 1]);
-	partition_index = i + 1;
-	quicksort(stack_a, partition_index);
-	quicksort(stack_a + partition_index + 1 , size - (partition_index + 1));
-}
-
-int	find_max_index(t_stack *a)
-{
-	int	max;
-	int	i;
-	int	index;
-
-	max = -2147483648;
-	i = 0;
-	index = 0;
-	while (i < a->size_b)
-	{
-		if (a->stack_b[i] > max)
-		{
-			max = a->stack_b[i];
-			index = i;
-		}
-		i++;
-	}
-	return (index);
-}
-
-int	find_max(t_stack *a)
-{
-	int	max;
-	int	i;
-
-	max = -2147483648;
-	i = 0;
-	while (i < a->size_b)
-	{
-		if (a->stack_b[i] > max)
-			max = a->stack_b[i];
-		i++;
-	}
-	return (max);
-}
-
 int	find_min_index(t_stack *a)
 {
 	int	min;
@@ -146,7 +85,7 @@ void	ft_putstr(char *str)
 	i = 0;
 	while (str[i])
 	{
-		write(2, str + i, 1);
+		write(1, str + i, 1);
 		i++;
 	}
 }

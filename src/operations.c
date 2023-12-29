@@ -58,7 +58,6 @@ void	ra(t_stack *a)
 		i++;
 	}
 	a->stack_a[a->size_a - 1] = temp;
-	printf("ra\n");
 }
 
 void	rb(t_stack *a)
@@ -74,7 +73,6 @@ void	rb(t_stack *a)
 		i++;
 	}
 	a->stack_b[a->size_b - 1] = temp;
-	printf("rb\n");
 }
 
 void	rra(t_stack *a)
@@ -91,7 +89,6 @@ void	rra(t_stack *a)
 		i--;
 	}
 	a->stack_a[0] = temp;
-	printf("rra\n");
 }
 
 void	rrb(t_stack *a)
@@ -108,7 +105,6 @@ void	rrb(t_stack *a)
 		i--;
 	}
 	a->stack_b[0] = temp;
-	printf("rrb\n");
 }
 
 void	sa(t_stack *a)
