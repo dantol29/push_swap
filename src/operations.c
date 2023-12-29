@@ -20,9 +20,7 @@ void	pb(t_stack *a)
 	}
 	a->size_a--;
 	a->size_b++;
-	a->instructions[a->instructions_size] = "pb";
-	a->instructions_size++;
-	//printf("pb\n");
+	printf("pb\n");
 }
 
 void	pa(t_stack *a)
@@ -44,9 +42,7 @@ void	pa(t_stack *a)
 	}
 	a->size_b--;
 	a->size_a++;
-	a->instructions[a->instructions_size] = "pa";
-	a->instructions_size++;
-	//printf("pa\n");
+	printf("pa\n");
 }
 
 void	ra(t_stack *a)
@@ -62,9 +58,7 @@ void	ra(t_stack *a)
 		i++;
 	}
 	a->stack_a[a->size_a - 1] = temp;
-	a->instructions[a->instructions_size] = "ra";
-	a->instructions_size++;
-	//printf("ra\n");
+	printf("ra\n");
 }
 
 void	rb(t_stack *a)
@@ -80,9 +74,7 @@ void	rb(t_stack *a)
 		i++;
 	}
 	a->stack_b[a->size_b - 1] = temp;
-	a->instructions[a->instructions_size] = "rb";
-	a->instructions_size++;
-	//printf("rb\n");
+	printf("rb\n");
 }
 
 void	rra(t_stack *a)
@@ -99,9 +91,7 @@ void	rra(t_stack *a)
 		i--;
 	}
 	a->stack_a[0] = temp;
-	a->instructions[a->instructions_size] = "rra";
-	a->instructions_size++;
-	//printf("rra\n");
+	printf("rra\n");
 }
 
 void	rrb(t_stack *a)
@@ -118,9 +108,7 @@ void	rrb(t_stack *a)
 		i--;
 	}
 	a->stack_b[0] = temp;
-	a->instructions[a->instructions_size] = "rrb";
-	a->instructions_size++;
-	//printf("rrb\n");
+	printf("rrb\n");
 }
 
 void	sa(t_stack *a)
@@ -130,7 +118,5 @@ void	sa(t_stack *a)
 	temp = a->stack_a[1];
 	a->stack_a[1] = a->stack_a[0];
 	a->stack_a[0] = temp;
-	a->instructions[a->instructions_size] = "sa";
-	a->instructions_size++;
-	//printf("sa\n");
+	printf("sa\n");
 }

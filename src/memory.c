@@ -26,32 +26,19 @@ void	allocate_memory(t_stack *a, char **argv)
 		exit(EXIT_FAILURE);
 	a->stack_b = (int *)malloc(sizeof(int) * a->size_a);
 	if (a->stack_b == NULL)
-	{
-		free(a->stack_a);
 		exit(EXIT_FAILURE);
-	}
 	a->stack_tmp = (int *)malloc(sizeof(int) * a->size_a);
 	if (a->stack_tmp == NULL)
-	{
-		free(a->stack_a);
-		free(a->stack_b);
 		exit(EXIT_FAILURE);
-	}
-	a->instructions = (char **)malloc(sizeof(char *) * (a->size_a * 100));
-	if (a->stack_tmp == NULL)
-	{
-		free(a->stack_a);
-		free(a->stack_b);
-		free(a->stack_tmp);
+	a->b_target = (int *)malloc(sizeof(int) * a->size_a);
+	if (a->b_target == 	NULL)
 		exit(EXIT_FAILURE);
-	}
-	i = 0;
-	a->instructions_size = 0;
-	while (a->instructions[i])
-	{
-		a->instructions[i] = (char *)malloc(sizeof(char *) * 3);
-		i++;
-	}
+	a->cost_a = (int *)malloc(sizeof(int) * a->size_a);
+	if (a->cost_a == 	NULL)
+		exit(EXIT_FAILURE);
+	a->cost_b = (int *)malloc(sizeof(int) * a->size_a);
+	if (a->cost_b == NULL)
+		exit(EXIT_FAILURE);
 	fill_stack(a, argv);
 }
 

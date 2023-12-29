@@ -12,6 +12,13 @@
 
 #include "../includes/push_swap.h"
 
+int	abs(int n)
+{
+	if (n < 0)
+		return (n * -1);
+	return (n);
+}
+
 void	quicksort(int *stack_a, int	size)
 {
 	int	pivot;
@@ -82,11 +89,11 @@ int	find_min_index(t_stack *a)
 	min = 2147483647;
 	i = 0;
 	index = 0;
-	while (i < a->size_b)
+	while (i < a->size_a)
 	{
-		if (a->stack_b[i] < min)
+		if (a->stack_a[i] < min)
 		{
-			min = a->stack_b[i];
+			min = a->stack_a[i];
 			index = i;
 		}
 		i++;
@@ -101,10 +108,10 @@ int	find_min(t_stack *a)
 
 	min = 2147483647;
 	i = 0;
-	while (i < a->size_b)
+	while (i < a->size_a)
 	{
-		if (a->stack_b[i] < min)
-			min = a->stack_b[i];
+		if (a->stack_a[i] < min)
+			min = a->stack_a[i];
 		i++;
 	}
 	return (min);

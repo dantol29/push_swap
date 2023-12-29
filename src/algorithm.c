@@ -20,106 +20,131 @@ void	sort_3(t_stack *a)
 	}
 }
 
-static void decide_to_rotate(t_stack *a, int hold_first, int hold_second)
+static void get_target(t_stack *a)
 {
-	int	i;
+    int i;
+    int j;
+    int tmp;
 
-	i = 0;
-	if (a->size_a - hold_second > hold_first)
-	{
-		while (i < hold_first)
-		{
-			ra(a);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < a->size_a - hold_second)
-		{
-			rra(a);
-			i++;
-		}
-	}
+    i = 0;
+    while (a->stack_b[i])
+    {
+        j = 0;
+        tmp = 2147483647;
+        while (j < a->size_a)
+        {
+            if (a->stack_a[j] > a->stack_b[i] && a->stack_a[j] < tmp)
+            {
+                a->b_target[i] = j;
+                tmp = a->stack_a[j];
+            }
+            j++;
+        }
+        if (tmp == 2147483647)
+            a->b_target[i] = find_min_index(a);
+        i++;
+    }
 }
 
-static void	find_holds(t_stack *a, int *hold_first, int *hold_second, int chunk_size)
+static void get_cost(t_stack *a)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (i < a->size_a)
-	{
-		if (a->stack_a[i] > chunk_size - chunk_size && a->stack_a[i] <= chunk_size)
-		{
-			*hold_first = i;
-			break ;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < a->size_a)
-	{
-		if (a->stack_a[a->size_a - i - 1] > chunk_size - chunk_size && a->stack_a[a->size_a - i - 1] <= chunk_size)
-		{
-			*hold_second = a->size_a - i - 1;
-			break ;
-		}
-		i++;
-	}
+    i = 0;
+    while (i < a->size_b)
+    {
+        a->cost_b[i] = i;
+        if (a->cost_b[i] > a->size_b / 2)
+            a->cost_b[i] = (a->size_b - a->cost_b[i]) * -1;
+        a->cost_a[i] = a->b_target[i];
+        if (a->cost_a[i] > a->size_a / 2)
+            a->cost_a[i] = (a->size_a - a->cost_a[i]) * -1;
+        i++;
+    }
 }
 
-static void	push_to_a(t_stack *a)
+static void rotate_and_push(t_stack *a, int cost_a, int cost_b)
 {
-	int	i;
-	int	max;
+    int i;
 
-	//print_stack(a->stack_b, a->size_b);
-	while (a->size_b > 0)
-	{
-		max = find_max_index(a);
-		//printf("%d max\n", a->stack_b[max]);
-		i = 0;
-		if (a->size_b / 2 > max)
-		{
-			while (i++ < max)
-				rb(a);
-		}
-		else
-		{
-			while (i++ < a->size_b - max)
-				rrb(a);
-		}
-		//printf("%d push\n", a->stack_b[0]);
-		pa(a);
-	}
+    i = 0;
+    if (cost_b < 0)
+    {
+        while (i++ < cost_b * -1)
+            rrb(a);
+    }
+    else if (cost_b >= 0)
+    {
+        while (i++ < cost_b)
+            rb(a);
+    }
+    i = 0;
+    if (cost_a < 0)
+    {
+        while (i++ < cost_a * -1)
+            rra(a);
+    }
+    else if (cost_a >= 0)
+    {
+        while (i++ < cost_a)
+            ra(a);
+    }
+    pa(a);
 }
 
-int	push_to_b(t_stack *a, int chunk_size)
+static void move_cheapest(t_stack *a)
 {
-	int	hold_first;
-	int	hold_second;
-	int	i;
-	int	tmp;
+    int i;
+    int cheapest;
+    int cost_a;
+    int cost_b;
 
-	hold_first = 0;
-	hold_second = 0;
-	tmp = chunk_size;
-	while (a->size_a > 0)
-	{
-		i = 0;
-		//printf("%d chunk\n", chunk_size);
-		while (i < a->size_a)
-		{
-			find_holds(a, &hold_first, &hold_second, chunk_size);
-			//printf("%d first %d second\n", hold_first, hold_second);
-			decide_to_rotate(a, hold_first, hold_second);
-			check_biggest(a, a->stack_a[0]);
-			pb(a);
-			i++;
-		}
-		chunk_size += tmp;
-	}
-	push_to_a(a);
-	return (0);
+    i = 0;
+    cheapest = 2147483647;
+    while (i < a->size_b)
+    {
+        if (abs(a->cost_a[i]) + abs(a->cost_b[i]) < cheapest)
+        {
+            cheapest = abs(a->cost_a[i]) + abs(a->cost_b[i]);
+            cost_a = a->cost_a[i];
+            cost_b = a->cost_b[i];
+        }
+        i++;
+    }
+    rotate_and_push(a, cost_a, cost_b);
+}
+
+void    solve(t_stack *a)
+{
+    while (a->size_b > 0)
+    {
+        get_target(a);
+        get_cost(a);
+        move_cheapest(a);
+    }
+    if (a->size_a / 2 > find_min_index(a))
+    {
+        while (a->stack_a[0] != find_min(a))
+            ra(a);
+    }
+    else
+    {
+        while (a->stack_a[0] != find_min(a))
+            rra(a);
+    }
+}
+
+void    sort(t_stack *a)
+{
+    if (a->size_a == 2 && check_if_sorted(a) != 1)
+		sa(a);
+	else if (a->size_a == 3)
+		sort_3(a);
+    else
+    {
+        while (a->size_a > 3)
+            pb(a);
+        sort_3(a);
+        solve(a);
+    }
 }

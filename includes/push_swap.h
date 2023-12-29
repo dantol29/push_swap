@@ -25,16 +25,16 @@ typedef struct s_stack
 	int		*stack_tmp;
 	int		size_a;
 	int		size_b;
-	char	**instructions;
-	int		instructions_size;
+	int		*b_target;
+	int		*cost_a;
+	int		*cost_b;
 }	t_stack;
 
 // algorithm
-int		push_to_b(t_stack *a, int chunk_size);
-void	quicksort(int *stack_a, int	size);
+void    sort(t_stack *a);
 void	sort_3(t_stack *a);
+void	quicksort(int *stack_a, int	size);
 void	assign_index(t_stack *a);
-void	check_biggest(t_stack *a, int number);
 
 // operations
 void	ra(t_stack *a);
@@ -63,6 +63,6 @@ int		find_max(t_stack *a);
 int		find_max_index(t_stack *a);
 int		find_min(t_stack *a);
 int		find_min_index(t_stack *a);
-void    print_instructions(t_stack *a);
+int		abs(int n);
 
 #endif
