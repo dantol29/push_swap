@@ -12,54 +12,54 @@ void	fill_stack(t_stack *a, char **numbers)
 	}
 }
 
-static int	count_numbers(const char *str)
+void	allocate_memory(t_stack *a, char **argv)
 {
 	int	i;
-	int	count;
 
 	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] == ' ')
-			i++;
-		if (str[i] != ' ' && str[i])
-		{
-			count++;
-			while (str[i] && str[i] != ' ')
-				i++;
-		}
-	}
-	return (count);
-}
-
-int	allocate_memory(t_stack *a, char **argv)
-{
-	a->size_a = count_numbers(argv[1]);
+	while (argv[i])
+		i++;
+	a->size_a = i;
 	a->size_b = 0;
 	a->stack_a = (int *)malloc(sizeof(int) * a->size_a);
 	if (a->stack_a == NULL)
-		return (1);
+		exit(EXIT_FAILURE);
 	a->stack_b = (int *)malloc(sizeof(int) * a->size_a);
 	if (a->stack_b == NULL)
 	{
 		free(a->stack_a);
-		return (1);
+		exit(EXIT_FAILURE);
 	}
 	a->stack_tmp = (int *)malloc(sizeof(int) * a->size_a);
 	if (a->stack_tmp == NULL)
 	{
 		free(a->stack_a);
 		free(a->stack_b);
-		return (1);
+		exit(EXIT_FAILURE);
 	}
-	return (0);
+	a->instructions = (char **)malloc(sizeof(char *) * (a->size_a * 100));
+	if (a->stack_tmp == NULL)
+	{
+		free(a->stack_a);
+		free(a->stack_b);
+		free(a->stack_tmp);
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	a->instructions_size = 0;
+	while (a->instructions[i])
+	{
+		a->instructions[i] = (char *)malloc(sizeof(char *) * 3);
+		i++;
+	}
+	fill_stack(a, argv);
 }
 
-void	free_memory(t_stack *a)
+void	free_memory_and_exit(t_stack *a)
 {
 	free(a->stack_a);
 	free(a->stack_b);
 	free(a->stack_tmp);
 	free(a);
+	exit(EXIT_SUCCESS);
 }

@@ -5,10 +5,7 @@ void	check_argv(int argc, char **argv)
 	int	j;
 
 	if (argc != 2)
-	{
-		ft_putstr("Error\n");
 		exit(EXIT_FAILURE);
-	}
 	j = 0;
 	while (argv[1][j])
 	{

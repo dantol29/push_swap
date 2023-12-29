@@ -20,17 +20,21 @@
 
 typedef struct s_stack
 {
-	int	*stack_a;
-	int	*stack_b;
-	int	*stack_tmp;
-	int	size_a;
-	int	size_b;
+	int		*stack_a;
+	int		*stack_b;
+	int		*stack_tmp;
+	int		size_a;
+	int		size_b;
+	char	**instructions;
+	int		instructions_size;
 }	t_stack;
 
 // algorithm
-void	iterative_quicksort(t_stack *a);
-void	quicksort(int *stack_a, int size);
-int		find_pivot(t_stack *a, int a_b);
+int		push_to_b(t_stack *a, int chunk_size);
+void	quicksort(int *stack_a, int	size);
+void	sort_3(t_stack *a);
+void	assign_index(t_stack *a);
+void	check_biggest(t_stack *a, int number);
 
 // operations
 void	ra(t_stack *a);
@@ -43,8 +47,8 @@ void	sa(t_stack *a);
 
 // memory
 void	fill_stack(t_stack *a, char **numbers);
-int		allocate_memory(t_stack *a, char **argv);
-void	free_memory(t_stack *a);
+void	allocate_memory(t_stack *a, char **argv);
+void	free_memory_and_exit(t_stack *a);
 
 // errors
 int		check_if_sorted(t_stack *a);
@@ -55,5 +59,10 @@ void    check_duplicates(char **numbers);
 void	ft_swap(int *a, int *b);
 void	print_stack(int *stack, int	size);
 void	ft_putstr(char *str);
+int		find_max(t_stack *a);
+int		find_max_index(t_stack *a);
+int		find_min(t_stack *a);
+int		find_min_index(t_stack *a);
+void    print_instructions(t_stack *a);
 
 #endif

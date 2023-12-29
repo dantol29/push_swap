@@ -12,56 +12,103 @@
 
 #include "../includes/push_swap.h"
 
-// int	ft_memcmp(int *a, int *b, int n)
-// {
-// 	int	i;
+void	quicksort(int *stack_a, int	size)
+{
+	int	pivot;
+	int	i;
+	int	j;
+	int	partition_index;
 
-// 	i = 0;
-// 	while (i < n)
-// 	{
-// 		if (a[i] != b[i])
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	if (size < 2 || stack_a == NULL)
+		return ;
+	pivot = stack_a[size - 1];
+	i = -1;
+	j = 0;
+	while (j < size)
+	{
+		if (pivot > stack_a[j])
+			ft_swap(&stack_a[j], &stack_a[++i]);
+		j++;
+	}
+	ft_swap(&stack_a[size - 1], &stack_a[i + 1]);
+	partition_index = i + 1;
+	quicksort(stack_a, partition_index);
+	quicksort(stack_a + partition_index + 1 , size - (partition_index + 1));
+}
 
-// int	ft_atoi(const char *str)
-// {
-// 	int	result;
-// 	int	sign;
-// 	int	i;
+int	find_max_index(t_stack *a)
+{
+	int	max;
+	int	i;
+	int	index;
 
-// 	i = 0;
-// 	result = 0;
-// 	sign = 1;
-// 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-// 		i++;
-// 	if (str[i] == '-' || str[i] == '+')
-// 	{
-// 		if (str[i] == '-')
-// 			sign = -1;
-// 		i++;
-// 	}
-// 	while (str[i] >= '0' && str[i] <= '9')
-// 	{
-// 		result = result * 10 + (str[i] - '0');
-// 		i++;
-// 	}
-// 	return (result * sign);
-// }
+	max = -2147483648;
+	i = 0;
+	index = 0;
+	while (i < a->size_b)
+	{
+		if (a->stack_b[i] > max)
+		{
+			max = a->stack_b[i];
+			index = i;
+		}
+		i++;
+	}
+	return (index);
+}
 
-// void	ft_memcpy(int *dest, int *src, size_t n)
-// {
-// 	size_t				i;
+int	find_max(t_stack *a)
+{
+	int	max;
+	int	i;
 
-// 	i = 0;
-// 	while (i < n)
-// 	{
-// 		dest[i] = src[i];
-// 		i++;
-// 	}
-// }
+	max = -2147483648;
+	i = 0;
+	while (i < a->size_b)
+	{
+		if (a->stack_b[i] > max)
+			max = a->stack_b[i];
+		i++;
+	}
+	return (max);
+}
+
+int	find_min_index(t_stack *a)
+{
+	int	min;
+	int	i;
+	int	index;
+
+	min = 2147483647;
+	i = 0;
+	index = 0;
+	while (i < a->size_b)
+	{
+		if (a->stack_b[i] < min)
+		{
+			min = a->stack_b[i];
+			index = i;
+		}
+		i++;
+	}
+	return (index);
+}
+
+int	find_min(t_stack *a)
+{
+	int	min;
+	int	i;
+
+	min = 2147483647;
+	i = 0;
+	while (i < a->size_b)
+	{
+		if (a->stack_b[i] < min)
+			min = a->stack_b[i];
+		i++;
+	}
+	return (min);
+}
 
 void	ft_swap(int *a, int *b)
 {
