@@ -42,7 +42,7 @@ void	assign_index(t_stack *a)
 	ft_memcpy(a->stack_tmp, a->stack_a, a->size_a);
 	used_index = ft_calloc(a->size_a, sizeof(int));
 	index = 1;
-	while(index < a->size_a)
+	while(index < a->size_a + 1)
 	{
 		min = find_next_min(a, used_index, index - 1);
 		a->stack_tmp[min] = index;

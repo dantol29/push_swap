@@ -1,39 +1,51 @@
 #include "../includes/push_swap.h"
 
-void	check_argv(int argc, char **argv)
+void	check_argv(int argc, char **numbers)
 {
 	int	j;
+    int i;
 
-	if (argc != 2)
-		exit(EXIT_FAILURE);
-	j = 0;
-	while (argv[1][j])
+    i = 0;
+    if (argc > 2)
+    {
+        i = 1;
+    }
+	while (numbers[i])
 	{
-		if (!((argv[1][j] >= '0' && argv[1][j] <= '9') || argv[1][j] == '-' || argv[1][j] == ' '))
-		{
-			ft_putstr("Error\n");
-			exit(EXIT_FAILURE);
-		}
-		j++;
+        j = 0;
+        while (numbers[i][j])
+        {
+            if (!((numbers[i][j] >= '0' && numbers[i][j] <= '9') || numbers[i][j] == '-'))
+		    {
+			    ft_putstr_fd("Error\n", 2);
+			    exit(EXIT_FAILURE);
+		    }
+		    j++;
+        }
+        i++;
 	}
 }
 
-void    check_duplicates(char **numbers)
+void    check_duplicates(int argc, char **numbers)
 {
     int i;
     int j;
     int num;
 
     i = 0;
+    if (argc > 2)
+        i = 1;
     while (numbers[i])
     {
         num = ft_atoi(numbers[i]);
         j = 0;
+        if (argc > 2)
+            j = 1;
         while (numbers[j])
         {
             if (num == ft_atoi(numbers[j]) && i != j)
             {
-                ft_putstr("Error\n");
+                ft_putstr_fd("Error\n", 2);
                 exit(EXIT_FAILURE);
             }
             j++;

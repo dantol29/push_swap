@@ -1,45 +1,42 @@
 #include "../includes/push_swap.h"
 
-void	fill_stack(t_stack *a, char **numbers)
+static void	fill_stack(t_stack *a, char **numbers, int j)
 {
 	int	i;
 
 	i = 0;
 	while (i < a->size_a)
 	{
-		a->stack_a[i] = ft_atoi(numbers[i]);
+		a->stack_a[i] = ft_atoi(numbers[j]);
+		j++;
 		i++;
 	}
 }
 
-void	allocate_memory(t_stack *a, char **argv)
+void	allocate_memory(t_stack *a, char **argv, int argc)
 {
 	int	i;
 
 	i = 0;
 	while (argv[i])
 		i++;
+	if (argc > 2)
+		i = argc - 1;
 	a->size_a = i;
 	a->size_b = 0;
 	a->stack_a = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->stack_a == NULL)
-		exit(EXIT_FAILURE);
 	a->stack_b = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->stack_b == NULL)
-		exit(EXIT_FAILURE);
 	a->stack_tmp = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->stack_tmp == NULL)
-		exit(EXIT_FAILURE);
 	a->b_target = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->b_target == 	NULL)
-		exit(EXIT_FAILURE);
 	a->cost_a = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->cost_a == 	NULL)
-		exit(EXIT_FAILURE);
 	a->cost_b = (int *)malloc(sizeof(int) * a->size_a);
-	if (a->cost_b == NULL)
+	if (a->stack_b == NULL || a->stack_a == NULL || a->stack_tmp == NULL\
+	|| a->b_target == NULL || a->cost_a == NULL || a->cost_b == NULL)
 		exit(EXIT_FAILURE);
-	fill_stack(a, argv);
+	if (argc > 2)
+		fill_stack(a, argv, 1);
+	else
+		fill_stack(a, argv, 0);
 }
 
 void	free_memory_and_exit(t_stack *a)
@@ -47,6 +44,9 @@ void	free_memory_and_exit(t_stack *a)
 	free(a->stack_a);
 	free(a->stack_b);
 	free(a->stack_tmp);
+	free(a->b_target);
+	free(a->cost_a);
+	free(a->cost_b);
 	free(a);
 	exit(EXIT_SUCCESS);
 }

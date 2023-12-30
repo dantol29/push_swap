@@ -49,21 +49,16 @@ void	pa(t_stack *a);
 void	sa(t_stack *a);
 
 // memory
-void	fill_stack(t_stack *a, char **numbers);
-void	allocate_memory(t_stack *a, char **argv);
+void	allocate_memory(t_stack *a, char **argv, int argc);
 void	free_memory_and_exit(t_stack *a);
 
 // errors
 int		check_if_sorted(t_stack *a);
 void	check_argv(int argc, char **argv);
-void    check_duplicates(char **numbers);
+void    check_duplicates(int argc, char **numbers);
 
 // utils
 void	ft_swap(int *a, int *b);
-void	print_stack(int *stack, int	size);
-void	ft_putstr(char *str);
-int		find_max(t_stack *a);
-int		find_max_index(t_stack *a);
 int		find_min(t_stack *a);
 int		find_min_index(t_stack *a);
 int		abs(int n);

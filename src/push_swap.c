@@ -12,6 +12,19 @@
 
 #include "../includes/push_swap.h"
 
+void	print_stack(int *stack, int	size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		printf("%d ", stack[i]);
+		i++;
+	}
+	printf("\n");
+}
+
 void	quicksort(int *stack_a, int	size)
 {
 	int	pivot;
@@ -42,25 +55,25 @@ void	sort_3(t_stack *a)
 	{
 		sa(a);
 		rra(a);
-        printf("rra\n");
+        ft_putstr_fd("rra\n", 1);
 	}
 	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[0] < a->stack_a[2])
 		sa(a);
 	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[1] < a->stack_a[2])
     {
         ra(a);
-        printf("ra\n");
+        ft_putstr_fd("ra\n", 1);
     }
 	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2] && a->stack_a[0] > a->stack_a[2])
     {
         rra(a);
-        printf("rra\n");
+        ft_putstr_fd("rra\n", 1);
     }
 	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2])
 	{
 		sa(a);
 		ra(a);
-        printf("ra\n");
+        ft_putstr_fd("ra\n", 1);
 	}
 }
 
@@ -83,12 +96,12 @@ int	main(int argc, char **argv)
 {
 	t_stack	*a;
 
-	check_argv(argc, argv);
 	if (argc == 2)
 		argv = ft_split(argv[1], ' ');
-	check_duplicates(argv);
+	check_argv(argc, argv);
+	check_duplicates(argc, argv);
 	a = malloc(sizeof(t_stack));
-	allocate_memory(a, argv);
+	allocate_memory(a, argv, argc);
 	if (check_if_sorted(a) == 1)
 		free_memory_and_exit(a);
 	assign_index(a);

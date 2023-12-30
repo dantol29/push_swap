@@ -7,7 +7,7 @@ void    shift_stack(t_stack *a)
         while (a->stack_a[0] != find_min(a))
         {
             ra(a);
-            printf("ra\n");
+            ft_putstr_fd("ra\n", 1);
         }
     }
     else
@@ -15,7 +15,7 @@ void    shift_stack(t_stack *a)
         while (a->stack_a[0] != find_min(a))
         {
             rra(a);
-            printf("rra\n");
+            ft_putstr_fd("rra\n", 1);
         }
     }
 }

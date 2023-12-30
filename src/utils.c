@@ -64,28 +64,3 @@ void	ft_swap(int *a, int *b)
 	*a = *b;
 	*b = temp;
 }
-
-void	print_stack(int *stack, int	size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		printf("%d ", stack[i]);
-		i++;
-	}
-	printf("\n");
-}
-
-void	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, str + i, 1);
-		i++;
-	}
-}
