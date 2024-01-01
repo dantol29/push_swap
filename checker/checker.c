@@ -10,19 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../includes/checker.h"
 
-void	print_stack(int *stack, int	size)
+void	ft_swap(int *a, int *b)
 {
-	int	i;
+	int	temp;
 
-	i = 0;
-	while (i < size)
-	{
-		printf("%d ", stack[i]);
-		i++;
-	}
-	printf("\n");
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
 void	quicksort(int *stack_a, int	size)
@@ -49,63 +45,70 @@ void	quicksort(int *stack_a, int	size)
 	quicksort(stack_a + partition_index + 1 , size - (partition_index + 1));
 }
 
-void	sort_3(t_stack *a)
+int	do_instructions(t_stack *a, char *input)
 {
-	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[1] > a->stack_a[2])
-	{
-		sa(a);
-		rra(a);
-        ft_putstr_fd("rra\n", 1);
-	}
-	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[0] < a->stack_a[2])
-		sa(a);
-	if (a->stack_a[0] > a->stack_a[1] && a->stack_a[1] < a->stack_a[2])
-    {
-        ra(a);
-        ft_putstr_fd("ra\n", 1);
-    }
-	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2] && a->stack_a[0] > a->stack_a[2])
-    {
-        rra(a);
-        ft_putstr_fd("rra\n", 1);
-    }
-	if (a->stack_a[0] < a->stack_a[1] && a->stack_a[1] > a->stack_a[2])
-	{
-		sa(a);
+	if (ft_strcmp(input, "ra\n") == 0)
 		ra(a);
-        ft_putstr_fd("ra\n", 1);
-	}
+	else if (ft_strcmp(input, "rb\n") == 0)
+		rb(a);
+	else if (ft_strcmp(input, "rra\n") == 0)
+		rra(a);
+	else if (ft_strcmp(input, "rrb\n") == 0)
+		rrb(a);
+	else if (ft_strcmp(input, "rr\n") == 0)
+		rr(a);
+	else if (ft_strcmp(input, "rrr\n") == 0)
+		rrr(a);
+	else if (ft_strcmp(input, "sa\n") == 0)
+		sa(a);
+	else if (ft_strcmp(input, "sb\n") == 0)
+		sb(a);
+	else if (ft_strcmp(input, "pa\n") == 0)
+		pa(a);
+	else if (ft_strcmp(input, "pb\n") == 0)
+		pb(a);
+	else
+		return (1);
+	return (0);
 }
 
-static void	sort(t_stack *a)
+void	print_stack(int *stack, int	size)
 {
-    if (a->size_a == 2 && check_if_sorted(a) != 1)
-		sa(a);
-	else if (a->size_a == 3)
-		sort_3(a);
-    else
-    {
-        while (a->size_a > 3)
-            pb(a);
-        sort_3(a);
-        solve(a);
-    }
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		printf("%d ", stack[i]);
+		i++;
+	}
+	printf("\n");
 }
+
 
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
+	char	*line;
 
 	if (argc == 2)
 		argv = ft_split(argv[1], ' ');
 	check_argv(argc, argv);
 	a = malloc(sizeof(t_stack));
 	allocate_memory(a, argv, argc);
-	if (check_if_sorted(a) == 1)
-		free_memory_and_exit(a);
-	assign_index(a);
-	sort(a);
-	//print_stack(a->stack_a, a->size_a);
-	// print_stack(a->stack_b, a->size_b);
-	free_memory_and_exit(a);
+	line = get_next_line(0);
+	while (line != NULL)
+	{
+		if (do_instructions(a, line) == 1)
+		{
+			ft_putstr_fd("Error\n", 1);
+			free_memory_and_exit(a, line, 1);
+		}
+		line = get_next_line(0);
+	}
+	if (check_if_sorted(a) == 0)
+		free_memory_and_exit(a, line, 0);
+	print_stack(a->stack_a, a->size_a);
+	ft_putstr_fd("KO", 1);
+	free_memory_and_exit(a, line, 1);
 }

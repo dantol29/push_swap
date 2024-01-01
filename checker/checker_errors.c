@@ -1,18 +1,18 @@
-#include "../includes/push_swap.h"
+#include "../includes/checker.h"
 
 static void check_int(char *str)
 {
     if (ft_atoi(str) > 2147483647 || ft_atoi(str) < -2147483647 ||\
     (ft_atoi(str) == 0 && str[0] != '0'))
     {
-        if (ft_strncmp("-2147483648", str, 11) == 0)
+        if (ft_strcmp("-2147483648", str) == 0)
             return ;
-        ft_putstr_fd("Error\n", 2);
+        ft_putstr_fd("Error\n", 1);
 		exit(EXIT_FAILURE);
     }
     if (ft_strlen(str) > 11 || (ft_strlen(str) > 10 && str[0] != '-'))
     {
-        ft_putstr_fd("Error\n", 2);
+        ft_putstr_fd("Error\n", 1);
 		exit(EXIT_FAILURE);
     }
 }
@@ -36,7 +36,7 @@ static void check_duplicates(int argc, char **numbers)
         {
             if (num == ft_atoi(numbers[j]) && i != j)
             {
-                ft_putstr_fd("Error\n", 2);
+                ft_putstr_fd("Error\n", 1);
                 exit(EXIT_FAILURE);
             }
             j++;
@@ -66,9 +66,9 @@ void	check_argv(int argc, char **numbers)
 
 int	check_if_sorted(t_stack *a)
 {
-	ft_memcpy(a->stack_tmp, a->stack_a, a->size_a);
-	quicksort(a->stack_tmp, a->size_a);
-	if (ft_memcmp(a->stack_a, a->stack_tmp, a->size_a) == 0)
+	ft_memcpy(a->stack_b, a->stack_tmp, a->size_tmp);
+	quicksort(a->stack_b, a->size_a);
+	if (ft_memcmp(a->stack_a, a->stack_b, a->size_tmp) != 0)
 		return (1);
 	return (0);
 }

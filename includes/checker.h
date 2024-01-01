@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_H
+# define CHECKER_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,21 +23,13 @@ typedef struct s_stack
 	int		*stack_a;
 	int		*stack_b;
 	int		*stack_tmp;
-	int		size_a;
 	int		size_b;
-	int		*b_target;
-	int		*cost_a;
-	int		*cost_b;
+	int		size_tmp;
+	int		size_a;
 }	t_stack;
 
 // algorithm
-void	sort_3(t_stack *a);
 void	quicksort(int *stack_a, int	size);
-void	assign_index(t_stack *a);
-void    rotate_and_push(t_stack *a, int cost_a, int cost_b);
-void    rotate_b(t_stack *a, int cost_b);
-void    rotate_a(t_stack *a, int cost_a);
-void    solve(t_stack *a);
 
 // operations
 void	ra(t_stack *a);
@@ -47,10 +39,13 @@ void	rrb(t_stack *a);
 void	pb(t_stack *a);
 void	pa(t_stack *a);
 void	sa(t_stack *a);
+void	sb(t_stack *a);
+void	rrr(t_stack *a);
+void	rr(t_stack *a);
 
 // memory
 void	allocate_memory(t_stack *a, char **argv, int argc);
-void	free_memory_and_exit(t_stack *a);
+void	free_memory_and_exit(t_stack *a, char *line, int status);
 
 // errors
 int		check_if_sorted(t_stack *a);
@@ -58,8 +53,6 @@ void	check_argv(int argc, char **argv);
 
 // utils
 void	ft_swap(int *a, int *b);
-int		find_min(t_stack *a);
-int		find_min_index(t_stack *a);
-int		abs(int n);
+char	*get_next_line(int fd);
 
 #endif

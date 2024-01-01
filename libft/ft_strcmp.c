@@ -1,46 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtolmaco <dtolmaco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 11:37:20 by dtolmaco          #+#    #+#             */
-/*   Updated: 2023/11/13 11:41:07 by dtolmaco         ###   ########.fr       */
+/*   Created: 2023/11/13 11:46:13 by dtolmaco          #+#    #+#             */
+/*   Updated: 2023/11/15 17:18:15 by dtolmaco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atoi(const char *str)
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	long	result;
-	int		sign;
-	int		i;
+	size_t			i;
+	unsigned char	*s1;
+	unsigned char	*s2;
 
+	s1 = (unsigned char *)str1;
+	s2 = (unsigned char *)str2;
 	i = 0;
-	result = 0;
-	sign = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	while (s1[i] && s1[i] == s2[i])
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
+	return (s1[i] - s2[i]);
 }
 /*
 #include <stdio.h>
-int main(int argc, char **argv)
+#include <string.h>
+int main()
 {
-    (void)argc;
-    printf("%d\n", ft_atoi(argv[1]));
-    printf("%d\n", atoi(argv[1]));
+    printf("%d\n", ft_strncmp("hellb", "hella", 5));
+    printf("%d\n", strncmp("hellb", "hella", 5));
 }*/
