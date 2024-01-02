@@ -28,9 +28,6 @@ typedef struct s_stack
 	int		size_a;
 }	t_stack;
 
-// algorithm
-void	quicksort(int *stack_a, int	size);
-
 // operations
 void	ra(t_stack *a);
 void	rb(t_stack *a);
@@ -46,13 +43,13 @@ void	rr(t_stack *a);
 // memory
 void	allocate_memory(t_stack *a, char **argv, int argc);
 void	free_memory_and_exit(t_stack *a, char *line, int status);
+void	free_tmp(char **tmp);
 
 // errors
-int		check_if_sorted(t_stack *a);
-void	check_argv(int argc, char **argv);
+int		check_argv(char **argv);
 
 // utils
-void	ft_swap(int *a, int *b);
 char	*get_next_line(int fd);
+void	quicksort(int *stack_a, int	size);
 
 #endif

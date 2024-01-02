@@ -12,13 +12,22 @@
 
 #include "../includes/checker.h"
 
-void	ft_swap(int *a, int *b)
+static void	ft_swap(int *a, int *b)
 {
 	int	temp;
 
 	temp = *a;
 	*a = *b;
 	*b = temp;
+}
+
+static int	check_if_sorted(t_stack *a)
+{
+	ft_memcpy(a->stack_b, a->stack_tmp, a->size_tmp);
+	quicksort(a->stack_b, a->size_a);
+	if (ft_memcmp(a->stack_a, a->stack_b, a->size_tmp) != 0)
+		return (1);
+	return (0);
 }
 
 void	quicksort(int *stack_a, int	size)
@@ -45,7 +54,7 @@ void	quicksort(int *stack_a, int	size)
 	quicksort(stack_a + partition_index + 1 , size - (partition_index + 1));
 }
 
-int	do_instructions(t_stack *a, char *input)
+static int	do_instructions(t_stack *a, char *input)
 {
 	if (ft_strcmp(input, "ra\n") == 0)
 		ra(a);
@@ -85,17 +94,16 @@ void	print_stack(int *stack, int	size)
 	printf("\n");
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	char	*line;
 
-	if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	check_argv(argc, argv);
+	if (argc == 1)
+        exit(EXIT_FAILURE);
 	a = malloc(sizeof(t_stack));
-	allocate_memory(a, argv, argc);
+	allocate_memory(a, argv, check_argv(argv));
+	print_stack(a->stack_a, a->size_a);
 	line = get_next_line(0);
 	while (line != NULL)
 	{
@@ -106,9 +114,8 @@ int	main(int argc, char **argv)
 		}
 		line = get_next_line(0);
 	}
-	if (check_if_sorted(a) == 0)
+	if (a->size_b == 0 && check_if_sorted(a) == 0)
 		free_memory_and_exit(a, line, 0);
-	print_stack(a->stack_a, a->size_a);
 	ft_putstr_fd("KO", 1);
 	free_memory_and_exit(a, line, 1);
 }

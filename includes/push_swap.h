@@ -32,7 +32,6 @@ typedef struct s_stack
 
 // algorithm
 void	sort_3(t_stack *a);
-void	quicksort(int *stack_a, int	size);
 void	assign_index(t_stack *a);
 void    rotate_and_push(t_stack *a, int cost_a, int cost_b);
 void    rotate_b(t_stack *a, int cost_b);
@@ -57,6 +56,7 @@ int		check_if_sorted(t_stack *a);
 void	check_argv(int argc, char **argv);
 
 // utils
+void	quicksort(int *stack_a, int	size);
 void	ft_swap(int *a, int *b);
 int		find_min(t_stack *a);
 int		find_min_index(t_stack *a);
