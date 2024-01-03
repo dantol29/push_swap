@@ -110,12 +110,13 @@ int	main(int argc, char **argv)
 		if (do_instructions(a, line) == 1)
 		{
 			ft_putstr_fd("Error\n", 1);
-			free_memory_and_exit(a, line, 1);
+			free(line);
+			free_memory_and_exit(a, 1);
 		}
 		line = get_next_line(0);
 	}
 	if (a->size_b == 0 && check_if_sorted(a) == 0)
-		free_memory_and_exit(a, line, 0);
+		free_memory_and_exit(a, 0);
 	ft_putstr_fd("KO", 1);
-	free_memory_and_exit(a, line, 1);
+	free_memory_and_exit(a, 1);
 }

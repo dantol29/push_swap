@@ -42,11 +42,12 @@ void	rr(t_stack *a);
 
 // memory
 void	allocate_memory(t_stack *a, char **argv, int argc);
-void	free_memory_and_exit(t_stack *a, char *line, int status);
+void	free_memory_and_exit(t_stack *a, int status);
 void	free_tmp(char **tmp);
 
 // errors
 int		check_argv(char **argv);
+void	check_duplicate(t_stack *a);
 
 // utils
 char	*get_next_line(int fd);

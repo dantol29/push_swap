@@ -36,13 +36,13 @@ void	allocate_memory(t_stack *a, char **argv, int size)
 	if (a->stack_a == NULL || a->stack_b == NULL || a->stack_tmp == NULL)
 		exit(EXIT_FAILURE);
 	fill_stack(a, argv);
+	check_duplicate(a);
 }
 
-void	free_memory_and_exit(t_stack *a, char *line, int status)
+void	free_memory_and_exit(t_stack *a, int status)
 {
 	free(a->stack_a);
 	free(a->stack_b);
-	free(line);
 	free(a);
 	if (status == 1)
 		exit(EXIT_FAILURE);

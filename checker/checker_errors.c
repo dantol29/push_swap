@@ -73,3 +73,25 @@ int check_argv(char **numbers)
 	}
     return (size);
 }
+
+void    check_duplicate(t_stack *a)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < a->size_a)
+    {
+        j = 0;
+        while (j < a->size_a)
+        {
+            if (a->stack_a[i] == a->stack_a[j] && i != j)
+            {
+                ft_putstr_fd("Error\n", 2);
+                free_memory_and_exit(a, 1);
+            }
+            j++;
+        }
+        i++;
+    }
+}
