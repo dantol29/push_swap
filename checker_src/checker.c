@@ -104,6 +104,6 @@ int	main(int argc, char **argv)
 	}
 	if (a->size_b == 0 && check_if_sorted(a) == 0)
 		free_memory_and_exit(a, 0);
-	ft_putstr_fd("KO", 1);
+	ft_putstr_fd("KO\n", 1);
 	free_memory_and_exit(a, 1);
 }
