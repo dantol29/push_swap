@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtolmaco <dtolmaco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:44:39 by dtolmaco          #+#    #+#             */
-/*   Updated: 2023/12/22 16:18:11 by dtolmaco         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:25:36 by dtolmaco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	check_if_sorted(t_stack *a)
 	return (0);
 }
 
-void	quicksort(int *stack_a, int	size)
+void	quicksort(int *stack_a, int size)
 {
 	int	pivot;
 	int	i;
@@ -51,7 +51,7 @@ void	quicksort(int *stack_a, int	size)
 	ft_swap(&stack_a[size - 1], &stack_a[i + 1]);
 	partition_index = i + 1;
 	quicksort(stack_a, partition_index);
-	quicksort(stack_a + partition_index + 1 , size - (partition_index + 1));
+	quicksort(stack_a + partition_index + 1, size - (partition_index + 1));
 }
 
 static int	do_instructions(t_stack *a, char *input)
@@ -81,38 +81,25 @@ static int	do_instructions(t_stack *a, char *input)
 	return (0);
 }
 
-void	print_stack(int *stack, int	size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		printf("%d ", stack[i]);
-		i++;
-	}
-	printf("\n");
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	char	*line;
+	int		size;
 
-	if (argc == 1)
-        exit(EXIT_FAILURE);
+	size = check_argv(argv, argc);
 	a = malloc(sizeof(t_stack));
-	allocate_memory(a, argv, check_argv(argv));
-	print_stack(a->stack_a, a->size_a);
+	allocate_memory(a, argv, size);
 	line = get_next_line(0);
 	while (line != NULL)
 	{
 		if (do_instructions(a, line) == 1)
 		{
-			ft_putstr_fd("Error\n", 1);
+			ft_putstr_fd("Error\n", 2);
 			free(line);
 			free_memory_and_exit(a, 1);
 		}
+		free(line);
 		line = get_next_line(0);
 	}
 	if (a->size_b == 0 && check_if_sorted(a) == 0)

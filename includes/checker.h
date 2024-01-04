@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtolmaco <dtolmaco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:46:47 by dtolmaco          #+#    #+#             */
-/*   Updated: 2023/12/21 18:11:51 by dtolmaco         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:27:03 by dtolmaco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECKER_H
 # define CHECKER_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include "../libft/libft.h"
 
 typedef struct s_stack
@@ -46,11 +46,13 @@ void	free_memory_and_exit(t_stack *a, int status);
 void	free_tmp(char **tmp);
 
 // errors
-int		check_argv(char **argv);
+int		check_argv(char **argv, int argc);
 void	check_duplicate(t_stack *a);
+void	check_int(t_stack *a, char **tmp);
+int		check_command(char *input);
 
 // utils
 char	*get_next_line(int fd);
-void	quicksort(int *stack_a, int	size);
+void	quicksort(int *stack_a, int size);
 
 #endif

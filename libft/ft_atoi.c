@@ -6,7 +6,7 @@
 /*   By: dtolmaco <dtolmaco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:37:20 by dtolmaco          #+#    #+#             */
-/*   Updated: 2023/11/13 11:41:07 by dtolmaco         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:28:36 by dtolmaco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ long	ft_atoi(const char *str)
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
+	if ((result > 2147483647 || result < -2147483648 || ft_strlen(str) > 11) \
+	&& ft_strcmp(str, "-2147483648") != 0)
+		return (0);
 	return (result * sign);
 }
 /*

@@ -6,12 +6,12 @@
 /*   By: dtolmaco <dtolmaco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:07:51 by dtolmaco          #+#    #+#             */
-/*   Updated: 2023/11/22 12:07:31 by dtolmaco         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:26:09 by dtolmaco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
-# define BUFFER_SIZE 10
+#define BUFFER_SIZE 10
 
 char	*ft_free(char *buffer, char *buf)
 {
@@ -109,6 +109,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = ft_get_line(save);
 	save = ft_next(save);
+	if (line == NULL && save == NULL)
+		return (NULL);
+	if (check_command(line) == 1)
+		free(save);
 	return (line);
 }
 

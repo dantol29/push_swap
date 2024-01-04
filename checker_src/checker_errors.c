@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   checker_errors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtolmaco <dtolmaco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 09:56:06 by dtolmaco          #+#    #+#             */
-/*   Updated: 2024/01/04 10:01:03 by dtolmaco         ###   ########.fr       */
+/*   Created: 2024/01/04 09:18:55 by dtolmaco          #+#    #+#             */
+/*   Updated: 2024/01/04 09:23:05 by dtolmaco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../includes/checker.h"
 
 static int	check_part(char **numbers, int j)
 {
