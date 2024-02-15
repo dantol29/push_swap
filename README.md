@@ -1,4 +1,6 @@
 # Push_swap 
+
+## Push swap with TURK ALGORITHM
 Project that involves sorting a stack of integers using a limited set of operations. The goal is to implement an efficient algorithm to sort the stack with the minimum number of moves.
 
 ## Usage
@@ -20,7 +22,7 @@ make bonus
 
 500 numbers - ~5500 instructions
 ## Algorithm
-I have tried Insertion sort, Quicksort, "Divide and Conquer" approach, however "the cheapest move" algorithm turned out to be the best
+I have tried Insertion sort, Quicksort, "Divide and Conquer" approach, however the Turk algorithm turned out to be the best
 
 Video that explains how this approach works - https://youtu.be/OaG81sDEpVk?si=ClfUaMz8SdSunAZ1
 ## Visualizer
